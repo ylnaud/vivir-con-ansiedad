@@ -1,12 +1,14 @@
 ---
-layout: layouts/base-contacto.njk
+layout: layouts/base.njk
 title: 📬 ¡Déjame un Mensaje!
 description: contacto
+hero: true
 ---
 
-<h2>
+<section class="flex-column ">
+  <h1>
   {{ title }}
-</h2>
+</h1>
 <p>
   ¿Te gustó lo que leíste? ¿Tienes alguna duda o simplemente quieres decir "¡Hola!"? 🤔 No seas tímido, deja tu comentario
   abajo ⬇️. No te preocupes, ¡prometo no morder! 🐶 (Solo muerdo el código 🧑‍💻). Si te sientes muy inspirado, puedes
@@ -27,10 +29,5 @@ description: contacto
   </fieldset>
   <input type="submit" value="Enviar"/>
 </form>
+</section>
 <!-- capture the JS content as a Nunjucks variable -->
-{% set js %}
-{% include "app.js" %}
-{% endset %}
-<!-- feed it through our jsmin filter to minify -->
-<script>
-  {{ js | jsmin | safe }}</script>

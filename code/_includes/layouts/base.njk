@@ -5,18 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ title }}</title>
     <link rel="icon" href="/img/logo.png"/>
-    <meta name="description" content="{{ descripcion }}"/> {% set css %}
+    <meta name="description" content="{{ descripcion }}"/> 
+    {% set css %}
     {% include "normalize.css" %}
     {% include "styles.css" %}
     {% endset %}
     <!-- feed it through our cssmin filter to minify -->
     <style>
-      {{css | cssmin | safe}}</style>
+      {{css | cssmin | safe}}
+    </style>
   </head>
   <body>
-    <header>{% include "nav.njk" %}</header>
-    <main class="container">{{ content | safe }}</main>
-    {% include "footer.njk" %}
-    <script type="module" src="js/index.js"></script>
+    <div>{% include "nav.njk" %}</div>
+  
+    <!-- Contenido principal -->
+    <div class="container gap-1">
+      <header class="header">
+        <a href="/">
+          <h2>Logo</h2>
+        </a>
+      </header>
+
+      {# Condición para incluir o excluir el bloque hero #}
+      {% if not hero %}
+        <div class="hero">
+          <img src="img/ban.jpg" alt="Imagen principal">
+          <div class="hero-text">
+            <h2>Bienvenido a Mi Sitio</h2>
+            <p>Una experiencia web increíble</p>
+          </div>
+        </div>
+      {% endif %}
+
+      <main class="main flex-column">
+        {{ content | safe }}
+        
+        {# Condición para incluir archivos en el bloque main #}
+        {% if includeInMain %}
+          {% include "extra-content.njk" %}
+        {% endif %}
+      </main>
+
+      {# Condición para incluir o excluir el aside #}
+      {% if not aside %}
+        {% include "aside.njk" %}
+      {% endif %}
+
+      {# Condición para incluir o excluir el footer #}
+      {% if not footer %}
+        {% include "footer.njk" %}
+      {% endif %}
+    </div>
+  
+    {% set js %}
+    {% include "app.js" %}
+    {% endset %}
+    <!-- feed it through our jsmin filter to minify -->
+    <script>
+      {{ js | jsmin | safe }}
+    </script>
+    <script type="module" src="app/index.js"></script>
   </body>
 </html>

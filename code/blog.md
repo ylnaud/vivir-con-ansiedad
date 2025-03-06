@@ -1,5 +1,5 @@
 ---
-layout: base-blog.njk
+layout: layouts/base.njk
 title: 💻 Blog de Desarrollo Web
 description: "Un viaje a través del conocimiento, donde cada entrada es una nueva aventura."
 ---

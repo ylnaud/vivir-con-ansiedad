@@ -1,15 +1,30 @@
-<header class="header">
-  <h1>
-    <strong>
-      <a href="/">Duanly Corps</a>
-    </strong>
-  </h1>
-  <p>Desarrollador web</p>
-  <nav class="nav">
-    <ul>
-      <li><a href="/about" class="contrast">Acerca de mi</a></li>
-      <li><a href="/blog" class="contrast">Blog</a></li>
-      <li><a href="/contact" class="contrast">Contacto</a></li>
-    </ul>
+  <!-- Barra de navegación -->
+  <nav class="nav" role="navigation">
+    <!-- Botón de modo oscuro -->
+    <button class="dark-mode-toggle" aria-label="Cambiar modo">🌕</button>
+
+    <!-- Menú de escritorio -->
+    <div class="desktop-menu">
+      <a href="#">Servicios</a>
+      <a href="#">Blog</a>
+      <a href="/contacto">Contacto</a>
+    </div>
+
+    <!-- Botón del menú móvil -->
+    <button class="menu-toggle" aria-label="Menú">
+      <div class="hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
   </nav>
-</header>
+
+  <!-- Menú móvil -->
+  <div class="menu-mobile">
+    <a href="#">Inicio</a>
+    <a href="#">Servicios</a>
+    <a href="#">Blog</a>
+    <a href="#">Contacto</a>
+  </div>
+
