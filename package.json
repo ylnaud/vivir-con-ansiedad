@@ -1,0 +1,39 @@
+{
+  "name": "base-project",
+  "version": "1.0.0",
+  "description": "template base",
+  "main": ".eleventy.js",
+  "type": "module",
+  "scripts": {
+    "install": "npm install @11ty/eleventy@3.0.0 --save-dev",
+    "start": "npx @11ty/eleventy@3.0.0 --serve --port=7799",
+    "build": "npx @11ty/eleventy@3.0.0",
+    "clean": "rm -rf docs",
+    "deploy": "npm run build && echo 'Desplegado en la raíz'",
+    "deploy-subdomain": "npx @11ty/eleventy@3.0.0 --pathprefix=/subdirectory/ && echo 'Desplegado en subdirectorio'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ylnaud/base-project.git"
+  },
+  "keywords": [
+    "eleventy"
+  ],
+  "author": "duanly vega alderete",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ylnaud/base-project/issues"
+  },
+  "homepage": "https://github.com/ylnaud/base-project#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "clean-css": "^5.3.3",
+    "google-fonts-inline": "^1.0.1",
+    "html-minifier-terser": "^7.2.0",
+    "terser": "^5.39.0"
+  },
+  "dependencies": {
+    "@11ty/eleventy-fetch": "^5.0.2",
+    "@11ty/eleventy-img": "^6.0.1"
+  }
+}

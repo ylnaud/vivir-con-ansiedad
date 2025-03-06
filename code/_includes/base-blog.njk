@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" href="/img/logo.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ title }}</title>
+    <meta
+    name="description" content="{{ descripcion }}"/> <!-- capture the CSS content as a Nunjucks variable -->
+    {% set css %}
+    {% include "styles.css" %}
+    {% endset %}
+    <!-- feed it through our cssmin filter to minify -->
+    <style>
+      {{css | cssmin | safe}}</style>
+  </head>
+  <body>
+    <article>
+      <header>{% include "nav.njk" %}</header>
+      <main class="container">{{ content | safe }}</main>
+      <aside>
+        <h2>Categorías</h2>
+        <h3>Blog</h3>
+        <ul>
+          {% for article in collections.blog %}
+            <li>
+              <a href="{{ article.url }}">{{ article.data.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </aside>
+      {% include "footer.njk" %}
+    </article>
+  </body>
+</html>
