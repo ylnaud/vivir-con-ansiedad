@@ -4,7 +4,24 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ title }}</title>
-    <link rel="icon" href="/img/logo.png"/>
+      <meta name="keywords" content="{{keyword}}">
+    <meta name="author" content="{{author}}">
+    
+    <!-- Open Graph / Facebook (para redes sociales) -->
+    <meta property="og:title" content="{{or-title}}">
+    <meta property="og:description" content="{{or-description}}">
+    <meta property="og:image" content="{{or-image}}">
+    <meta property="og:url" content="{{or-url}}">
+    <meta property="og:type" content="{{or-type}}">
+    
+    <!-- Twitter Card (para Twitter) -->
+    <meta name="twitter:card" content="{{twit-card}}">
+    <meta name="twitter:title" content="{{twit-title}}">
+    <meta name="twitter:description" content="{{twit-description}}">
+    <meta name="twitter:image" content="{{twit-image}}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.ico">
     <meta name="description" content="{{ descripcion }}"/> 
     {% set css %}
     {% include "normalize.css" %}
@@ -29,7 +46,7 @@
       {# Condición para incluir o excluir el bloque hero #}
       {% if not hero %}
         <div class="hero">
-          <img src="img/ban.jpg" alt="Imagen principal">
+          <img src="/img/ban.jpg" alt="Imagen principal">
           <div class="hero-text">
             <h2>Bienvenido a Mi Sitio</h2>
             <p>Una experiencia web increíble</p>
@@ -64,6 +81,6 @@
     <script>
       {{ js | jsmin | safe }}
     </script>
-    <script type="module" src="app/index.js"></script>
+    <script type="module" src="/app/index.js"></script>
   </body>
 </html>

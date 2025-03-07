@@ -463,6 +463,8 @@ img {
     overflow-wrap: break-word;
   }
 
+
+
   section h1 {
     font-size: var(--font-size-h1);
     color: var(--color-h1);
@@ -472,10 +474,15 @@ img {
   }
 
   section p {
+    text-align: justify;
+    max-width: 700px;
+    margin: 0 auto;
+    hyphens: auto;
+    /* Corta bien las palabras si es necesario */
     font-size: var(--font-size-p);
     color: var(--color-p);
     margin-bottom: var(--margin-p);
-    text-align: center;
+
     line-height: 1.6;
 
   }
@@ -535,7 +542,9 @@ img {
   .text-container {
     max-width: var(--max-width-text);
     margin: 0 auto;
+    padding: 1rem;
     text-align: center;
+    border: 2px solid black;
   }
 
   .text-container p {
@@ -557,19 +566,22 @@ img {
 
 /* Estilos para la sección de contacto */
 section {
-  max-width: 800px;
+  max-width: auto;
   margin: 0 auto;
   padding: var(--padding);
 }
 
 section h1 {
-  font-size: clamp(24px, 6vw, 36px);
+  font-size: clamp(24px, 4vw + 1rem, 36px);
   color: var(--color-primary);
   margin-bottom: var(--margin);
 }
 
 section p {
+  width: auto;
   white-space: normal;
+  overflow: hidden;
+  box-sizing: border-box;
   font-size: clamp(14px, 2.5vw, 18px);
   color: var(--color-text);
   margin-bottom: var(--margin);

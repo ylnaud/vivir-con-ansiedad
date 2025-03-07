@@ -16,6 +16,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("code/css");
 
   eleventyConfig.addPassthroughCopy("code/app");
+  eleventyConfig.addPassthroughCopy("code/ico");
+
   eleventyConfig.addPassthroughCopy("code/img");
   eleventyConfig.addPassthroughCopy("code/svg");
 
