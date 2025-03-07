@@ -170,12 +170,14 @@ a:hover {
 
 /* CONTENEDOR PRINCIPAL */
 .container {
-
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--padding);
+  grid-template-columns: 1fr;
   box-sizing: border-box;
   display: grid;
+  overflow-x: hidden;
   grid-template-areas:
     "header"
     "nav"
@@ -210,6 +212,7 @@ a:hover {
   top: 0;
   width: 100%;
   max-width: 1200px;
+  /* Evita que se salga en móviles */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
@@ -219,6 +222,12 @@ a:hover {
   padding: var(--padding);
   box-shadow: var(--shadow);
 
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .nav a {
@@ -245,11 +254,12 @@ a:hover {
 .hero img {
   max-width: 100%;
   height: auto;
-  object-fit: cover;
+  display: block;
 }
 
 .hero-text {
-  white-space: normal;
+  white-space: wrap;
+  overflow-wrap: break-word;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -383,6 +393,34 @@ a:hover {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    grid-template-areas:
+      "header"
+      "nav"
+      "hero"
+      "main"
+      "aside"
+      "footer"
+
+    ;
+
+
+  }
+
+  .nav {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  section h1 {
+    font-size: clamp(20px, 5vw, 28px);
+  }
+
+  section p {
+    font-size: clamp(14px, 4vw, 16px);
+  }
+
   .menu-toggle {
     display: block;
   }
