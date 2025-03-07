@@ -8,7 +8,27 @@
   --color-dark: #2c3e50;
   --color-text: #2c3e50;
   --color-text-light: #ffffff;
+  /* Estilos de títulos */
+  --font-size-h1: clamp(24px, 6vw, 36px);
+  --color-h1: var(--color-primary);
+  --margin-h1: var(--margin);
 
+  /* Estilos de párrafos */
+  --font-size-p: clamp(16px, 2.5vw, 18px);
+  --color-p: var(--color-text);
+  --margin-p: var(--margin);
+  /* Controla el ancho máximo del texto */
+  --max-width-text: 700px;
+  /* Espaciados */
+  --padding-small: 0.5rem;
+  --gap-small: 0.75rem;
+  --margin-small: 0.5rem;
+
+  /* Tipografía */
+  --font-size-small: 0.875rem;
+
+  /* Bordes */
+  --border-radius-small: 4px;
   --gap: 16px;
   --padding: 1rem;
   --margin: 1rem;
@@ -410,6 +430,24 @@ img {
 
   }
 
+  .form {
+    padding: var(--padding-small);
+  }
+
+  .form fieldset {
+    gap: var(--gap-small);
+  }
+
+  .form label {
+    font-size: var(--font-size-small);
+  }
+
+  .form input,
+  .form textarea {
+    padding: var(--padding-small);
+    font-size: var(--font-size-small);
+  }
+
   .hero img {
     width: auto;
     height: auto;
@@ -426,11 +464,20 @@ img {
   }
 
   section h1 {
-    font-size: clamp(20px, 5vw, 28px);
+    font-size: var(--font-size-h1);
+    color: var(--color-h1);
+    margin-bottom: var(--margin-h1);
+    font-weight: bold;
+    text-align: center;
   }
 
   section p {
-    font-size: clamp(14px, 4vw, 16px);
+    font-size: var(--font-size-p);
+    color: var(--color-p);
+    margin-bottom: var(--margin-p);
+    text-align: center;
+    line-height: 1.6;
+
   }
 
   .menu-toggle {
@@ -458,6 +505,20 @@ img {
   .desktop-menu {
     display: flex !important;
   }
+
+  .text-container {
+    text-align: justify;
+    padding: var(--padding-small);
+  }
+
+  .text-container p:first-of-type::after {
+    content: " " attr(data-extra);
+    display: inline;
+  }
+
+  .text-container p:last-of-type {
+    display: none;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -469,6 +530,16 @@ img {
       "hero hero"
       "main aside"
       "footer footer";
+  }
+
+  .text-container {
+    max-width: var(--max-width-text);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .text-container p {
+    display: block;
   }
 }
 
@@ -506,63 +577,71 @@ section p {
 
 /* Estilos para el formulario */
 .form {
+  max-width: 600px;
+  /* Define un ancho máximo */
+  width: 100%;
+  padding: var(--padding);
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  background: var(--color-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--gap);
 }
 
-.form fieldset {
-  max-width: 100%;
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
 .form label {
-  display: block;
-  margin-bottom: var(--margin);
+  display: flex;
+  flex-direction: column;
   font-weight: bold;
   color: var(--color-primary);
+  margin-bottom: var(--margin);
 }
 
 .form input,
 .form textarea {
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: 0.75rem;
+  width: 100%;
+  padding: var(--padding);
   border: 1px solid var(--color-secondary);
   border-radius: var(--border-radius);
-  font-size: 1rem;
+  font-size: var(--font-size);
   color: var(--color-text);
   background-color: var(--color-light);
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: var(--transition);
+  box-sizing: border-box;
 }
 
 .form input:focus,
 .form textarea:focus {
   border-color: var(--color-accent);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+  box-shadow: var(--shadow-focus);
 }
 
 .form textarea {
   resize: vertical;
-  min-height: 150px;
+  min-height: 120px;
 }
 
 .form input[type="submit"] {
-  display: block;
   background-color: var(--color-accent);
   color: var(--color-text-light);
-  max-width: 100%;
-  width: auto;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: var(--padding);
   border-radius: var(--border-radius);
-  font-size: 1rem;
+  font-size: var(--font-size);
   cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 0 auto;
+  transition: var(--transition);
 }
 
 .form input[type="submit"]:hover {
@@ -572,4 +651,8 @@ section p {
 /* Estilos para el reCAPTCHA */
 div[data-netlify-recaptcha="true"] {
   margin: var(--margin) 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
 }
