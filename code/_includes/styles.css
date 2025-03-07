@@ -255,6 +255,8 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
+
 }
 
 .hero-text {
@@ -408,9 +410,19 @@ img {
 
   }
 
+  .hero img {
+    width: auto;
+    height: auto;
+  }
+
   .nav {
     width: 100%;
     max-width: 100%;
+  }
+
+  .aside {
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
 
   section h1 {
@@ -487,7 +499,7 @@ section h1 {
 
 section p {
   white-space: normal;
-  font-size: clamp(16px, 2.5vw, 18px);
+  font-size: clamp(14px, 2.5vw, 18px);
   color: var(--color-text);
   margin-bottom: var(--margin);
 }
@@ -514,7 +526,7 @@ section p {
 
 .form input,
 .form textarea {
-  width: 100%;
+  max-width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--color-secondary);
   border-radius: var(--border-radius);
