@@ -1,0 +1,33 @@
+/* typography.css */
+body {
+  scroll-behavior: smooth;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Modo Claro */
+body.light-mode {
+  background-color: var(--color-light);
+  color: var(--color-text);
+}
+
+/* Modo Oscuro */
+body.dark-mode {
+  background-color: var(--color-dark);
+  color: var(--color-text);
+}
+
+/* Enlaces */
+a {
+  text-decoration: none;
+  color: var(--color-text-light);
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--color-accent);
+}

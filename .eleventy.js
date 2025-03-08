@@ -1,5 +1,5 @@
 import { createInlineCss } from "google-fonts-inline";
-import { promises as fs } from "fs";
+import { promises as fs, promises } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import htmlmin from "html-minifier-terser";
@@ -12,41 +12,37 @@ import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default function (eleventyConfig) {
-  // Archivos a copiar directamente
+  // 📂 1️⃣ Archivos estáticos a copiar sin cambios
   eleventyConfig.addPassthroughCopy("code/css");
-
   eleventyConfig.addPassthroughCopy("code/app");
   eleventyConfig.addPassthroughCopy("code/ico");
-
   eleventyConfig.addPassthroughCopy("code/img");
   eleventyConfig.addPassthroughCopy("code/svg");
 
-  // Crear una colección de etiquetas
+  // 🏷️ 2️⃣ Colección de etiquetas
   eleventyConfig.addCollection("tags", function (collectionApi) {
     let tagsObj = {};
     collectionApi.getAll().forEach((item) => {
       if (!item.data.tags) return;
       item.data.tags.forEach((tag) => {
-        if (!tagsObj[tag]) {
-          tagsObj[tag] = [];
-        }
+        if (!tagsObj[tag]) tagsObj[tag] = [];
         tagsObj[tag].push(item);
       });
     });
     return tagsObj;
   });
 
-  // Crear un shortcode para generar CSS en línea de Google Fonts
+  // 🎨 3️⃣ Shortcode para CSS de Google Fonts
   eleventyConfig.addShortcode("googleFontsInline", async function (url) {
     try {
-      const css = await createInlineCss(url);
-      return css;
+      return await createInlineCss(url);
     } catch (error) {
       console.error("Error al generar el CSS en línea:", error);
       return "";
     }
   });
 
+  // 🖼️ 4️⃣ Shortcode para iconos SVG individuales
   eleventyConfig.addNunjucksAsyncShortcode(
     "svgIcon",
     async (src, className = "", title = "", desc = "") => {
@@ -54,7 +50,7 @@ export default function (eleventyConfig) {
         const filePath = path.join(__dirname, "code/svg", src);
         let svgContent = await fs.readFile(filePath, "utf-8");
 
-        // Generar ID único basado en el nombre del archivo
+        // ID único basado en el nombre del archivo
         const idBase = src.replace(".svg", "").replace(/\W+/g, "-");
 
         // Agregar atributos SEO
@@ -64,13 +60,13 @@ export default function (eleventyConfig) {
         );
 
         // Insertar title y desc dentro del SVG
-        const seoMetadata = `
-        <title id="${idBase}-title">${title}</title>
-        <desc id="${idBase}-desc">${desc}</desc>
-      `;
-        svgContent = svgContent.replace("</svg>", `${seoMetadata}</svg>`);
-
-        return svgContent;
+        return svgContent.replace(
+          "</svg>",
+          `
+          <title id="${idBase}-title">${title}</title>
+          <desc id="${idBase}-desc">${desc}</desc>
+        </svg>`
+        );
       } catch (error) {
         console.error(`Error leyendo el SVG ${src}:`, error);
         return "";
@@ -78,6 +74,7 @@ export default function (eleventyConfig) {
     }
   );
 
+  // 🖼️ 5️⃣ Shortcode para sprite SVG
   eleventyConfig.addNunjucksAsyncShortcode("svgSprite", async () => {
     try {
       const svgDir = path.join(__dirname, "code/svg");
@@ -89,49 +86,103 @@ export default function (eleventyConfig) {
           let svg = await fs.readFile(path.join(svgDir, file), "utf-8");
           const id = file.replace(".svg", "").replace(/\W+/g, "-");
 
-          // Extraer viewBox y contenido sin <svg>
+          // Extraer viewBox y limpiar etiquetas <svg>
           const viewBoxMatch = svg.match(/viewBox="([^"]+)"/);
           const viewBox = viewBoxMatch ? viewBoxMatch[1] : "0 0 24 24";
           svg = svg.replace(/<svg[^>]*>/, "").replace(/<\/svg>/, "");
 
-          // Agregar title y desc para SEO
-          const title = `Title for ${id}`; // Personaliza esto según tus necesidades
-          const desc = `Description for ${id}`; // Personaliza esto según tus necesidades
-
           spriteContent += `
-          <symbol id="${id}" viewBox="${viewBox}" role="img" aria-labelledby="${id}-title ${id}-desc">
-            <title id="${id}-title">${title}</title>
-            <desc id="${id}-desc">${desc}</desc>
-            ${svg}
-          </symbol>`;
+            <symbol id="${id}" viewBox="${viewBox}" role="img" aria-labelledby="${id}-title ${id}-desc">
+              <title id="${id}-title">Title for ${id}</title>
+              <desc id="${id}-desc">Description for ${id}</desc>
+              ${svg}
+            </symbol>`;
         }
       }
 
-      spriteContent += `</svg>`;
-      return spriteContent;
+      return spriteContent + `</svg>`;
     } catch (error) {
       console.error("Error generando sprite de SVG:", error);
       return "";
     }
   });
+  eleventyConfig.on("eleventy.after", async () => {
+    if (process.env.NODE_ENV === "production") {
+      console.log("🔧 Minificando CSS y eliminando archivos innecesarios...");
 
-  // HTML minify
+      const cssFiles = [
+        "docs/css/variables.css",
+        "docs/css/reset.css",
+        "docs/css/typography.css",
+        "docs/css/utilities.css",
+        "docs/css/layout.css",
+        "docs/css/components.css",
+        "docs/css/animations.css",
+        "docs/css/responsive.css",
+      ];
+
+      let combinedCss = "";
+      for (const file of cssFiles) {
+        try {
+          let content = await fs.readFile(file, "utf-8");
+          combinedCss += content + "\n";
+        } catch (error) {
+          console.warn(`⚠ No se pudo leer ${file}:`, error);
+        }
+      }
+
+      if (combinedCss) {
+        await fs.writeFile(
+          "docs/css/main.css",
+          new CleanCSS({}).minify(combinedCss).styles
+        );
+        console.log("✅ CSS combinado y minificado en main.css");
+      }
+
+      // 📌 Eliminar los archivos CSS individuales en producción
+      for (const file of cssFiles) {
+        try {
+          await fs.unlink(file);
+          console.log(`🗑️ Eliminado: ${file}`);
+        } catch (error) {
+          console.warn(`⚠ No se pudo eliminar ${file}:`, error);
+        }
+      }
+
+      // 📌 Minificar JS
+      const jsFiles = ["docs/app/index.js"];
+      for (const file of jsFiles) {
+        try {
+          let content = await fs.readFile(file, "utf-8");
+          let minified = await minify(content, {
+            module: true,
+            compress: true,
+            mangle: true,
+          });
+          await fs.writeFile(file, minified.code);
+          console.log(`✅ Minificado: ${file}`);
+        } catch (error) {
+          console.error(`❌ Error minificando ${file}:`, error);
+        }
+      }
+    }
+  });
+  // 📌 Minificación de HTML solo en producción
   eleventyConfig.addTransform("htmlmin", function (content) {
-    if ((this.page.outputPath || "").endsWith(".html")) {
-      let minified = htmlmin.minify(content, {
+    if (
+      process.env.NODE_ENV === "production" &&
+      this.outputPath?.endsWith(".html")
+    ) {
+      return htmlmin.minify(content, {
         useShortDoctype: true,
         removeComments: true,
         collapseWhitespace: true,
-        minifyCSS: true,
-        minifyJS: true,
       });
-      return minified;
     }
     return content;
   });
 
-  // Plugins
-
+  // 🔌 7️⃣ Plugins de Eleventy
   eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     formats: ["webp", "avif"],
@@ -147,6 +198,7 @@ export default function (eleventyConfig) {
     },
   });
 
+  // 🔤 8️⃣ Filtro para crear slugs
   eleventyConfig.addFilter("slugify", function (str, maxLength = 50) {
     return str
       .toLowerCase()
@@ -155,25 +207,11 @@ export default function (eleventyConfig) {
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "")
-      .substring(0, maxLength) // Limita la longitud
-      .replace(/-+$/, ""); // Elimina guiones al final después de truncar
+      .substring(0, maxLength)
+      .replace(/-+$/, "");
   });
 
-  // Filtros para minificar CSS y JS
-  eleventyConfig.addFilter("cssmin", function (code) {
-    return new CleanCSS({}).minify(code).styles;
-  });
-
-  eleventyConfig.addFilter("jsmin", async function (code) {
-    try {
-      const minified = await minify(code);
-      return minified.code;
-    } catch (err) {
-      console.error("Terser error: ", err);
-      return code;
-    }
-  });
-
+  // 📂 🔟 Configuración de directorios
   return {
     dir: {
       input: "code",

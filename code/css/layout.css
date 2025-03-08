@@ -1,0 +1,130 @@
+/* layout.css */
+/* CONTENEDOR PRINCIPAL */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--padding);
+  grid-template-columns: 1fr;
+  box-sizing: border-box;
+  display: grid;
+  overflow-x: hidden;
+  grid-template-areas:
+    "header"
+    "nav"
+    "hero"
+    "main"
+    "aside"
+    "footer";
+}
+
+/* ESTILOS DEL HEADER */
+.header {
+  grid-area: header;
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  text-align: center;
+  padding: var(--padding);
+  position: relative;
+  z-index: 10;
+  margin-top: 60px;
+}
+
+.header a {
+  display: inline-block;
+  max-width: 1200px;
+}
+
+/* NAVBAR */
+.nav {
+  grid-area: nav;
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 1200px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-secondary);
+  padding: var(--padding);
+  box-shadow: var(--shadow);
+}
+
+.nav a {
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: background 0.3s;
+  color: var(--color-light);
+}
+
+.nav a:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+/* HERO */
+.hero {
+  grid-area: hero;
+  position: relative;
+  min-height: 150px;
+  background-color: var(--color-dark);
+  z-index: 1;
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.hero-text {
+  white-space: wrap;
+  overflow-wrap: break-word;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-text-light);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+/* MAIN */
+.main {
+  width: 100%;
+  grid-area: main;
+  padding: var(--padding);
+  background-color: var(--color-light);
+}
+
+/* ASIDE */
+.aside {
+  width: 100%;
+  grid-area: aside;
+  background-color: var(--color-hsla);
+  color: var(--color-text-light);
+  padding: var(--padding);
+}
+
+.related-article a {
+  text-decoration: underline;
+  color: var(--color-text-light);
+}
+
+/* FOOTER */
+.footer {
+  grid-area: footer;
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  text-align: center;
+  padding: var(--padding);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
   const menuToggle = document.querySelector(".menu-toggle");
   const hamburgerIcon = document.querySelector(".hamburger-icon");
   const menuMobile = document.querySelector(".menu-mobile");
@@ -59,3 +59,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
   detectDevice();
 });
+ */

@@ -6,10 +6,10 @@
   "type": "module",
   "scripts": {
     "install": "npm install @11ty/eleventy@3.0.0 --save-dev",
-    "start": "npx @11ty/eleventy@3.0.0 --serve --port=7799",
+    "start": "NODE_ENV=development npx @11ty/eleventy@3.0.0 --serve --port=7799",
     "build": "npx @11ty/eleventy@3.0.0",
     "clean": "rm -rf docs",
-    "deploy": "npm run build && echo 'Desplegado en la raíz'",
+    "deploy": "NODE_ENV=production eleventy && echo 'Desplegado en la raíz'",
     "deploy-subdomain": "npx @11ty/eleventy@3.0.0 --pathprefix=/subdirectory/ && echo 'Desplegado en subdirectorio'"
   },
   "repository": {

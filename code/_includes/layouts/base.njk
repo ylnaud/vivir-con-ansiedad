@@ -25,12 +25,11 @@
     <meta name="description" content="{{ descripcion }}"/> 
     {% set css %}
     {% include "normalize.css" %}
-    {% include "styles.css" %}
+    
     {% endset %}
+    <link rel="stylesheet" href="/css/main.css" />
     <!-- feed it through our cssmin filter to minify -->
-    <style>
-      {{css | cssmin | safe}}
-    </style>
+   
   </head>
   <body>
     <div>{% include "nav.njk" %}</div>
@@ -78,9 +77,7 @@
     {% include "app.js" %}
     {% endset %}
     <!-- feed it through our jsmin filter to minify -->
-    <script>
-      {{ js | jsmin | safe }}
-    </script>
+   
     <script type="module" src="/app/index.js"></script>
   </body>
 </html>

@@ -1,0 +1,139 @@
+/* components.css */
+/* MENÚ MÓVIL */
+.menu-mobile {
+  display: none;
+  position: fixed;
+  top: 60px;
+  right: 0;
+  width: 250px;
+  background-color: var(--color-secondary);
+  box-shadow: var(--shadow);
+  z-index: 1000;
+  padding: var(--padding);
+  border-radius: 0 0 0 var(--border-radius);
+}
+
+.menu-mobile.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-mobile a {
+  padding: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s;
+}
+
+.menu-mobile a:hover {
+  background-color: var(--color-primary);
+}
+
+/* MENÚ HAMBURGUESA */
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  width: 30px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.hamburger-icon span {
+  height: 3px;
+  width: 100%;
+  background: var(--color-text-light);
+  border-radius: 9px;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger-icon.open span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-icon.open span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* PREGUNTAS FRECUENTES */
+.faq-item {
+  margin-bottom: var(--margin);
+}
+
+.faq-content {
+  padding-top: var(--padding);
+}
+
+.faq-toggle {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+  padding: var(--padding);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.faq-toggle:hover {
+  background: var(--color-secondary);
+}
+
+/* FORMULARIO */
+.form {
+  max-width: 400px;
+  margin: var(--margin) auto;
+  box-sizing: border-box;
+  padding: var(--padding);
+  background: var(--color-light);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* CAMPOS DEL FORMULARIO */
+.form fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+.form label {
+  font-weight: bold;
+  margin-bottom: var(--padding-small);
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  padding: var(--padding-small);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius-small);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background: var(--color-light);
+}
+
+/* ESTILO DEL BOTÓN */
+.form button {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+  padding: var(--padding-small);
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.form button:hover {
+  background: var(--color-secondary);
+}
